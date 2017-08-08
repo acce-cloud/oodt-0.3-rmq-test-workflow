@@ -7,5 +7,5 @@ if [ $token_worker = '' ]; then
    exit -1
 fi
 
-export MANAGER_IP=172.20.14.73
+#export MANAGER_IP=172.20.14.73
 docker swarm join --token $token_worker $MANAGER_IP:2377

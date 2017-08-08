@@ -1,6 +1,6 @@
 #!/bin/sh
 # Cleans up directories from previous workflows.
-# Submits a new set of workflows using the RabbitMQ producer.
+# Submits a new set of workflows using the standard workflow manager client.
 
 # identify the first worker container
 wrkr_ids=`docker ps | grep oodt-wmgr | awk '{print $1}' | awk '{print $1}'`
@@ -12,5 +12,8 @@ docker exec -it $wrkr_id sh -c "rm -rf /usr/local/oodt/pges/test-workflow/jobs/*
 docker exec -it $wrkr_id ls -l /usr/local/oodt/pges/test-workflow/jobs
 
 NJOBS=1
-cd /usr/local/oodt/rabbitmq/
-docker exec -it $wrkr_id sh -c "cd /usr/local/oodt/rabbitmq; python test_workflow_driver.py $NJOBS"
+for ((i=1;i<=NJOBS;i++)); do
+   # submit workflow $i
+   echo "Submitting workflow # $i"
+   docker exec -it $wrkr_id sh -c "cd /usr/local/oodt/cas-workflow/bin; ./wmgr-client --url http://oodt-wmgr:9001 --operation --sendEvent --eventName test-workflow --metaData --key Dataset abc --key Project 123 --key Run $i"
+done
