@@ -13,6 +13,9 @@ docker service create --replicas 1 --name oodt-filemgr -p 9000:9000 --network sw
 # start RabbitMQ server on swarm manager node
 docker service create --replicas 1 --name oodt-rabbitmq -p 5672:5672 -p 15672:15672 --network swarm-network \
                       --constraint 'node.role == manager' \
+                      --mount type=bind,src=$OODT_CONFIG/rabbitmq_clients/test_workflow_driver.py,dst=/usr/local/oodt/rabbitmq/test_workflow_driver.py \
+                      --env 'RABBITMQ_USER_URL=amqp://oodt-user:changeit@localhost/%2f' \
+                      --env 'RABBITMQ_ADMIN_URL=http://oodt-admin:changeit@localhost:15672' \
                       oodthub/oodt-rabbitmq                    
 
 # start workflow 
@@ -22,7 +25,6 @@ docker service create --replicas 1 --name oodt-wmgr --network swarm-network \
                       --mount type=bind,src=$OODT_CONFIG/workflows/test-workflow/pge-configs,dst=/usr/local/oodt/workflows/test-workflow/pge-configs \
                       --mount type=bind,src=$OODT_CONFIG/pges/test-workflow,dst=/usr/local/oodt/pges/test-workflow \
                       --mount type=bind,src=$OODT_CONFIG/conf/supervisord.conf,dst=/etc/supervisor/supervisord.conf \
-                      --mount type=bind,src=$OODT_CONFIG/rabbitmq_clients/test_workflow_driver.py,dst=/usr/local/oodt/rabbitmq/test_workflow_driver.py \
                       --mount type=bind,src=$OODT_JOBS,dst=/usr/local/oodt/pges/test-workflow/jobs \
                       --mount type=bind,src=$OODT_ARCHIVE,dst=/usr/local/oodt/archive \
                       --env 'FILEMGR_URL=http://oodt-filemgr:9000/' \
