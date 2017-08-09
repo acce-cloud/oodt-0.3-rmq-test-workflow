@@ -93,7 +93,13 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   ./step4_node1.sh
   
   After sending the messages, the script monitors the RMQ server untill all messages have been pulled by the RMQ clients inside the WM containers. When the last workflow completes, all output products should be moved to $OODT_ARCHIVE.
-
+  
+* To clean up:
+  * Delete the output product: rm -rf $OODT_ARCHIVE/test-workflow/\*
+  * Delete the job execution files: rm -rf $OODT_JOBS/\*
+  * Delete the Docker services: ./step5_node1.sh
+  * Remove workers from the Swarm: ./step6_nodeI.sh (to be executed on each Swarm worker node)
+  * Delete the Swarm: ./step7_node1.sh
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
 
