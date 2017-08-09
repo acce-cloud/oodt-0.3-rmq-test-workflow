@@ -36,6 +36,7 @@ This tutorial can be executed on the Amazon Cloud by creating a cluster of EC2 i
 Start by launching an EC2 instance which will be the Swarm Manager, with the following characteristics:
 * Use the latest Amazon Linux ECS optimized AMI (ami-57d9cd2e at the time of this writing)
 * Choose a medium size server, for example t2.xlarge (4 CPUs, 16GB memory)
+* Number of instances = 1
 * Use expanded storage: 100GB for the root partition, and 100GB for the additional EBS disk
 * Tag the instance with "Name=Swarm Manager Node" (to distinguish it from the others)
 * When the EC2 instance starts up, automatically mount a pre-existing EFS volume to hold the shared directories (see the file SwamManagerNode.config as an example of "user data" to be specified in the "Instance Details" AWS launch wizard)
@@ -46,7 +47,8 @@ export MANAGER_IP=172.20.9.14
 
 Make note of the special token needed to join the Swarm as a worker node.
 
-Then launch N additional EC2 instances to be Swarm Workers, using the same specificiations as above, except for the following differences:
+Then launch N additional EC2 instances to be Swarm Workers, using the same specificiations as above, except for the following:
+* Number of instances = N
 * Tag the instances with "Name=Swarm Worker Node"
 * When each instance starts up, automatically mount the pre-existing EFS volume, and additionally join the existing Swarm as a worker (see the file SwarmWorkerNode, which needs to be modified for the specific Swarm Manager IP address, and the specific Swarm Worker token).
 
