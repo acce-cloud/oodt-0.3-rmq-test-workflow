@@ -87,6 +87,13 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   Optionally, increase the number of WM containers:
   
   docker service scale oodt-wmgr=4
+  
+* Send N (=10 by default) messages to the RMQ server, to start as many workflows on the WM containers.
+
+  ./step4_node1.sh
+  
+  After sending the messages, the script monitors the RMQ server untill all messages have been pulled by the RMQ clients inside the WM containers. When the last workflow completes, all output products should be moved to $OODT_ARCHIVE.
+
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
 
