@@ -32,7 +32,7 @@ docker service create --replicas 1 --name oodt-wmgr --network swarm-network \
                       --env 'RABBITMQ_USER_URL=amqp://oodt-user:changeit@oodt-rabbitmq/%2f' \
                       --env 'RABBITMQ_ADMIN_URL=http://oodt-admin:changeit@oodt-rabbitmq:15672' \
                       --env 'WORKFLOW_QUEUE=test-workflow' \
-                      --env 'MAX_WORKFLOWS=3' \
+                      --env 'MAX_WORKFLOWS=1' \
                       oodthub/oodt-wmgr:0.3
 docker service scale oodt-wmgr=2
 
