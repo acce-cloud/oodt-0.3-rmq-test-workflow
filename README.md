@@ -31,19 +31,19 @@ Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then
 
 * Create a directory to be used as shared disk by all containers. For example:
 
-mkdir -p /shared-data/test
+  mkdir -p /shared-data/test
 
 * Check out this Git repository which contains the necessary configuration for the OODT services:
 
-mkdir -p /shared-data/test/src
+  mkdir -p /shared-data/test/src
 
-cd /shared-data/test/src
+  cd /shared-data/test/src
 
-git clone https://github.com/oodt-cloud/oodt-0.3-rmq-test-workflow.git
+  git clone https://github.com/oodt-cloud/oodt-0.3-rmq-test-workflow.git
 
-cd oodt-0.3-rmq-test-workflow
+  cd oodt-0.3-rmq-test-workflow
 
-export OODT_CONFIG=`pwd`
+  export OODT_CONFIG=\`pwd\`
 
 
 
