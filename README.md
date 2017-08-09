@@ -134,4 +134,4 @@ As demonstrated in this tutorial, the RabbitMQ client/server architecture can be
 
   python rabbitmq_client.py pull <workflow_queue> <max_workflows>
   
-  where <workflow_queue> is the name of the RMQ queue to subscribe to, which is equal to the name of the OODT event triggering the workflow; and <max_workflows> is the maximum number of concurrent workflows that can be run inside the local Workflow Manager (i.e. the client keeps pulling messages from the RMQ server until that limit is reached, then wait for the WM workload to decrease before pulling other messages).
+  where <workflow_queue> is the name of the RMQ queue to pull messages from, which is equal to the name of the OODT event triggering the workflow; and <max_workflows> is the maximum number of concurrent workflows that can be run inside the local Workflow Manager. That ism the RMQ client keeps pulling messages from the specified queue on the RMQ server until that max limit is reached, then wait for the WM workload to decrease before pulling other messages.
