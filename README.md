@@ -63,18 +63,14 @@ Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then
 
 Follow the tutorial by executing the step-by-step scripts contained in the directory $OODT_CONFIG/swarm:
 
-cd $OODT_CONFIG/swarm
-
 * Create the Swarm:
 
-./step1_node1.sh
+  ./step1_node1.sh
 
-The above command will create a Docker Swarm, and set up the current host as Swarm manager. Capture the output of the previous command and execute it on all the other hosts so they can join the Swarm as workers (step2_nodeXs.sh), for example:
+  The above command will create a Docker Swarm, and set up the current host as Swarm manager. Capture the output of the previous command   and execute it on all the other hosts so they can join the Swarm as workers (step2_nodeXs.sh), for example:
 
-docker swarm join \
-    
+  docker swarm join \  
     --token SWMTKN-1-2q67pe5u9y0sqggtgy6ksn6zxnle1ol82e5ql765ltgjfu3iii-exk4ejrah7h1y3s8kcmtcki88 \
-    
     172.20.5.254:2377
 
 
