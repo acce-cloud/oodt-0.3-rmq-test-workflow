@@ -126,6 +126,12 @@ Then launch N additional EC2 instances to be Swarm Workers, using the same speci
 
 # Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture
 
-As demonstrated in this tutorial, the RabbitMQ client/server architecture can be used to effectively mamage submission of workflows to multiple distributed Workflow Managers - effectively replacing the need for the OODT Resource Manager component. To use RMQ with OODT, follow these steps:
+As demonstrated in this tutorial, the RabbitMQ client/server architecture can be used to effectively mamage submission of workflows to multiple distributed OODT Workflow Managers - effectively replacing the need for the OODT Resource Manager component. To use RMQ with OODT, follow these steps:
 
 * Start a container running the RMQ server image "oodthub/oodt-rabbitmq". This container must be reachable at ports 5672, 15672 by all other containers running RMQ clients (which connect with username and password).
+
+* Inside each WM container, start a RMQ client which continuosly connect to the RMQ server, pulling messages from a specic queue. The  RMQ client script must be packaged inside the container, and can be started as follows:
+
+  python rabbitmq_client.py pull <workflow_queue> <max_workflows>
+  
+  where <workflow_queue> is the name of the RMQ queue to subscribe to, which is equal to the name of the OODT event triggering the workflow; and <max_workflows> is the maximum number of concurrent workflows that can be run inside the local Workflow Manager (i.e. the client keeps pulling messages from the RMQ server until that limit is reached, then wait for the WM workload to decrease before pulling other messages).
