@@ -7,6 +7,8 @@ OODT_JOBS=/shared_data/test/pges/test-workflow/jobs
 for ((i=100;i>=1;i--)); do
   echo "Cleaning up ${OODT_ARCHIVE}/test-workflow/output_Run_${i}*"
   sudo rm -rf ${OODT_ARCHIVE}/test-workflow/output_Run_${i}*
+  echo "Cleaning up ${OODT_JOBS}/${i}*"
+  sudo rm -rf ${OODT_JOBS}/${i}*
 done
 
 # jobs
