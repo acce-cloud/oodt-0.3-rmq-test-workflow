@@ -61,7 +61,7 @@ Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then
 
 # Execution
 
-Follow the tutorial by executing the step-by-step scripts contained in the directory $OODT_CONFIG/swarm:
+Follow the tutorial by executing the step-by-step scripts contained in the directory $OODT_CONFIG/swarm. All scripts must be executed on the Swarm manager node, unless otherwise stated.
 
 * Create the Swarm:
 
@@ -76,6 +76,17 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   
   docker node ls
 
+* Start the OODT services, deploying the Docker containers onto the appropriate swarm nodes:
+
+  ./step3_node1.sh
+  
+  Wait untill all services are in a running state:
+  
+  docker service ls
+  
+  Optionally, increase the number of WM containers:
+  
+  docker service scale oodt-wmgr=4
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
 
