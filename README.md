@@ -11,6 +11,8 @@ spanning multiple hosts. The tutorial sets up the following architecture (see at
 * For each Workflow Manager, a RMQ client co-located in the same container, which periodically pulls
   messages from the RMQ server and use them to submit workflows to the local WM
   
+This tutorial is based on Docker images built from OODT 0.3.
+  
 # Pre-Requisites
 * A cluster of N hosts with Docker installed
 * A shared disk cross-mounted across all hosts, used to store the following directories:
