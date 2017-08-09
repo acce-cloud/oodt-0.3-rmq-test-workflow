@@ -1,6 +1,3 @@
-# oodt-0.3-rmq-test-workflow
-Test workflow example using OODT-0.3 and RabbitMQ
-
 # Summary
 This tutorial provides an example on how to run and scale OODT services within a Docker Swarm environment
 spanning multiple hosts. The tutorial sets up the following architecture (see attached figure):
