@@ -36,7 +36,14 @@ This tutorial can be executed on the Amazon Cloud by creating a cluster of EC2 i
 Start by launching an EC2 instance which will be the Swarm Manager, with the following characteristics:
 * Use the latest Amazon Linux ECS optimized AMI (ami-57d9cd2e at the time of this writing)
 * Choose a medium size server, for example t2.xlarge (4 CPUs, 16GB memory)
-* Use expanded storage: 100GB for the root partition, and for the additional EBS disk
+* Use expanded storage: 100GB for the root partition, and 100GB for the additional EBS disk
+* Tag the instance with "Name=Swarm Manager Node" (to distinguish it from the others)
 * When the EC2 instance starts up, automatically mount a pre-existing EFS volume to hold the shared directories (see the file SwamManagerNode.config as an exampe)
+
+When this instance is ready, ssh into it and initialize the Docker Swarm, using the instance private IP as the Swarm Manager IP, for example:
+
+export MANAGER_IP=172.20.9.14
+
+Then
 
 # Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture
