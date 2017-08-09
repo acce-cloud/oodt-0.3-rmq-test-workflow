@@ -1,6 +1,7 @@
 #!/bin/sh
 # Cleans up directories from previous workflows.
 # Submits a new set of workflows using the standard workflow manager client.
+# Must be execute on a host running a workflow manager container.
 
 # identify the first worker container
 wrkr_ids=`docker ps | grep oodt-wmgr | awk '{print $1}' | awk '{print $1}'`
