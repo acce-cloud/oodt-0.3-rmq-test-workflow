@@ -125,3 +125,7 @@ Then launch N additional EC2 instances to be Swarm Workers, using the same speci
 * When each instance starts up, automatically mount the pre-existing EFS volume, and additionally join the existing Swarm as a worker (use the file SwarmWorkerNode, which needs to be modified for the specific Swarm manager IP address, and the specific Swarm worker token).
 
 # Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture
+
+As demonstrated in this tutorial, the RabbitMQ client/server architecture can be used to effectively mamage submission of workflows to multiple distributed Workflow Managers - effectively replacing the need for the OODT Resource Manager component. To use RMQ with OODT, follow these steps:
+
+* Start a container running the RMQ server image "oodthub/oodt-rabbitmq". This container must be reachable at ports 5672, 15672 by all other containers running RMQ clients (which connect with username and password).
