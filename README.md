@@ -67,10 +67,14 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
 
   ./step1_node1.sh
 
-  The above command will create a Docker Swarm, and set up the current host as Swarm manager. Capture the output of the previous command   and execute it on all the other hosts so they can join the Swarm as workers (step2_nodeX.sh), for example:
+  The above command will create a Docker Swarm, and set up the current host as Swarm manager. Capture the output of the previous command   and execute it on all the other hosts so they can join the Swarm as workers (step2_nodeI.sh), for example:
 
   docker swarm join \  
     --token SWMTKN-1-2q67pe5u9y0sqggtgy6ksn6zxnle1ol82e5ql765ltgjfu3iii-exk4ejrah7h1y3s8kcmtcki88 172.20.5.254:2377
+    
+  Verify that all nodes have joined the Swarm:
+  
+  docker node ls
 
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
@@ -94,6 +98,6 @@ Make note of the special token needed to join the Swarm as a worker node.
 Then launch N additional EC2 instances to be Swarm Workers, using the same specificiations as above, except for the following:
 * Number of instances = N
 * Tag the instances with "Name=Swarm Worker Node"
-* When each instance starts up, automatically mount the pre-existing EFS volume, and additionally join the existing Swarm as a worker (see the file SwarmWorkerNode, which needs to be modified for the specific Swarm Manager IP address, and the specific Swarm Worker token).
+* When each instance starts up, automatically mount the pre-existing EFS volume, and additionally join the existing Swarm as a worker (use the file SwarmWorkerNode, which needs to be modified for the specific Swarm manager IP address, and the specific Swarm worker token).
 
 # Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture
