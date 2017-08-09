@@ -27,6 +27,24 @@ In particular, this tutorial can be executed on a cluster of Amazon EC2 instance
 
 # Setup
 
+Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then:
+
+* Create a directory to be used as shared disk by all containers. For example:
+
+mkdir -p /shared-data/test
+
+* Check out this Git repository which contains the necessary configuration for the OODT services:
+
+mkdir -p /shared-data/test/src
+
+cd /shared-data/test/src
+
+git clone https://github.com/oodt-cloud/oodt-0.3-rmq-test-workflow.git
+
+cd oodt-0.3-rmq-test-workflow
+
+export OODT_CONFIG=`pwd`
+
 
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
