@@ -45,6 +45,16 @@ Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then
 
   export OODT_CONFIG=\`pwd\`
 
+* Define env variables referencing the other shared directories, and create them:
+  
+  export OODT_ARCHIVE=/shared_data/test/archive
+  
+  mkdir -p $OODT_ARCHIVE
+  
+  export OODT_JOBS=/shared_data/test/pges/test-workflow/jobs
+  
+  mkdir -p $OODT_JOBS
+
 
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
