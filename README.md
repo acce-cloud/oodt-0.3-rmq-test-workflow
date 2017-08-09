@@ -130,8 +130,10 @@ As demonstrated in this tutorial, the RabbitMQ client/server architecture can be
 
 * Start a container running the RMQ server image "oodthub/oodt-rabbitmq". This container must be reachable at ports 5672, 15672 by all other containers running RMQ clients (which connect with username and password).
 
-* Inside each WM container, start a RMQ client which continuosly connect to the RMQ server, pulling messages from a specic queue. The  RMQ client script must be packaged inside the container, and can be started as follows:
+* Inside each WM container, start a RMQ "message consumer" which continuosly connect to the RMQ server, pulling messages from a specic queue. The  RMQ client script must be packaged inside the container, and can be started as follows:
 
   python rabbitmq_client.py pull <workflow_queue> <max_workflows>
   
   where <workflow_queue> is the name of the RMQ queue to pull messages from, which is equal to the name of the OODT event triggering the workflow; and <max_workflows> is the maximum number of concurrent workflows that can be run inside the local Workflow Manager. That ism the RMQ client keeps pulling messages from the specified queue on the RMQ server until that max limit is reached, then wait for the WM workload to decrease before pulling other messages.
+
+* Submit workflows by using a RMQ "message producer" which sends messages to the RMQ server, containing all the medadata necessary to execute a specific workflow. Typically, a small client can be written (see for example test_workflow_driver.py) that inserts all the necessary metadata in a Python dictionary, and then uses the rabbitmq_producer.py module which is packaged with the RMQ or WM containers.
