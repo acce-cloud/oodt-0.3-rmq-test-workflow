@@ -1,0 +1,32 @@
+{
+    "cluster": "OodtTestCluster", 
+    "serviceName": "Oodt03WorklowManagerRabbitmqService", 
+    "taskDefinition": "Oodt03WorklowManagerRabbitmqTask", 
+    "loadBalancers": [
+        {
+            "targetGroupArn": "",
+            "loadBalancerName": "EsgfClassicLoadBalancer",
+            "containerName": "OodtWorkflowManager",
+            "containerPort": 9001
+        }
+    ],
+    "desiredCount": 1, 
+    "clientToken": "", 
+    "role": "ecsServiceRole",
+    "deploymentConfiguration": {
+        "maximumPercent": 200, 
+        "minimumHealthyPercent": 50
+    }, 
+    "placementConstraints": [
+    ], 
+    "placementStrategy": [
+        {
+            "field": "attribute:ecs.availability-zone",
+            "type": "spread"
+        },
+        {
+             "field": "instanceId",
+             "type": "spread"
+        }
+    ]
+}
