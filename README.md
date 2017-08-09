@@ -61,7 +61,7 @@ Start by launching an EC2 instance which will be the Swarm Manager, with the fol
 
 When this instance is ready, ssh into it and initialize the Docker Swarm, using the instance private IP as the Swarm Manager IP, for example:
 
-export MANAGER_IP=172.20.9.14
+export MANAGER_IP=172.20.5.254
 
 Make note of the special token needed to join the Swarm as a worker node.
 
