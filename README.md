@@ -55,6 +55,9 @@ Choose one of the hosts to be the Swarm Manager, and connect to it via ssh. Then
   
   mkdir -p $OODT_JOBS
 
+* Define an env variable for the IP address of the current (Swarm manager) host, for example:
+
+  export MANAGER_IP=172.20.5.254
 
 
 # Appendix: How to setup the tutorial on the Amazon Cloud
