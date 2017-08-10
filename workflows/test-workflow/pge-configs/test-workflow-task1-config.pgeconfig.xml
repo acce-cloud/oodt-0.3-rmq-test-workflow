@@ -11,7 +11,7 @@
 
 	<customMetadata>
 		<metadata key="ProductionDateTime" val="[DATE.UTC]" />
-		<metadata key="JobDir" val="[PGE_ROOT]/test-workflow/jobs/[WorkflowInstId]" />
+		<metadata key="JobDir" val="/usr/local/oodt/pges/test-workflow/jobs/[WorkflowInstId]" />
 	</customMetadata>
 
 </pgeConfig>
