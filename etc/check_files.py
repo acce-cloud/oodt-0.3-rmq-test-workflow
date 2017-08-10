@@ -1,7 +1,7 @@
 # script to check output files in given directory
 import glob
 
-njobs=2000
+njobs=10000
 ntasks=2
 root_dir = '/shared_data/test/archive/test-workflow'
 #all_files = glob.glob('%s/*.out' % root_dir)
