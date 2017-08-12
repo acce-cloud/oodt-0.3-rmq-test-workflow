@@ -13,7 +13,7 @@ LOG_FORMAT = '%(levelname)s: %(message)s'
 LOGGER = logging.getLogger(__name__)
 LOG_FILE = "rabbitmq_producer.log" # in current directory
 TEST_WORKFLOW = 'test-workflow'
-SLEEP_TIME = 1 # time to wait before sending the next message
+SLEEP_TIME = 0.5 # time to wait before sending the next message
 
 def main(number_of_runs):
     
@@ -34,7 +34,7 @@ def main(number_of_runs):
         publish_messages(msg_queue, num_msgs, msg_dict)
             
         # wait before submitting the next run
-        time.sleep(SLEEP_TIME)
+        #time.sleep(SLEEP_TIME)
     
     # wait for RabbitMQ server to process all messages in all queues
     wait_for_queues(delay_secs=10)
