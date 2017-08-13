@@ -80,6 +80,8 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
 
   ./step3_node1.sh
   
+  Note: the parameter MAX_WORKFLOWS inside the script defines the maximum number of workflows that can be run concurrently within each WM.
+  
   Wait untill all services are in a running state:
   
   docker service ls
@@ -88,9 +90,11 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   
   docker service scale oodt-wmgr=4
   
-* Send N (=10 by default) messages to the RMQ server, to start as many workflows on the WM containers.
+* Send N messages to the RMQ server, to start as many workflows on the WM containers.
 
   ./step4_node1.sh
+  
+  Note: the parameter NJOBS inside the script defines the total number of messages sent to the RMQ server, i.e. the total number of workflows submitted to all WMs.
   
   After sending the messages, the script monitors the RMQ server untill all messages have been pulled by the RMQ clients inside the WM containers. When the last workflow completes, all output products should be moved to $OODT_ARCHIVE.
   
