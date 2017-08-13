@@ -8,4 +8,4 @@ cid=`echo $cids | awk '{print $1;}'`
 echo $cid
 
 NJOBS=10
-docker exec -it $cid sh -c "cd /usr/local/oodt/rabbitmq; python test_workflow_driver.py $NJOBS"
+docker exec -i $cid sh -c "cd /usr/local/oodt/rabbitmq; python test_workflow_driver.py $NJOBS"
