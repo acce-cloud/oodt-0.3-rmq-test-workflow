@@ -4,7 +4,7 @@ OODT_ARCHIVE=/shared_data/test/archive
 OODT_JOBS=/shared_data/test/pges/test-workflow/jobs
 
 # data archive
-for ((i=100;i>=1;i--)); do
+for ((i=1000;i>=1;i--)); do
   echo "Cleaning up ${OODT_ARCHIVE}/test-workflow/output_Run_${i}*"
   sudo rm -rf ${OODT_ARCHIVE}/test-workflow/output_Run_${i}*
   echo "Cleaning up ${OODT_JOBS}/${i}*"
