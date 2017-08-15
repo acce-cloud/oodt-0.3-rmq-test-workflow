@@ -1,9 +1,9 @@
 {
   "requiresAttributes": [],
-  "taskDefinitionArn": "arn:aws:ecs:us-west-2:031003439974:task-definition/Oodt03WorklowManagerRabbitmqTask:6",
+  "taskDefinitionArn": "arn:aws:ecs:us-west-2:031003439974:task-definition/Oodt03WorkflowManagerRabbitmqTask:1",
   "networkMode": "bridge",
   "status": "ACTIVE",
-  "revision": 6,
+  "revision": 1,
   "taskRoleArn": null,
   "containerDefinitions": [
     {
@@ -97,7 +97,12 @@
       "memoryReservation": null
     }
   ],
-  "placementConstraints": [],
+  "placementConstraints": [
+    {
+      "expression": "attribute:oodt_type == worker_node",
+      "type": "memberOf"
+    }
+  ],
   "volumes": [
     {
       "host": {
@@ -136,5 +141,5 @@
       "name": "archive"
     }
   ],
-  "family": "Oodt03WorklowManagerRabbitmqTask"
+  "family": "Oodt03WorkflowManagerRabbitmqTask"
 }
