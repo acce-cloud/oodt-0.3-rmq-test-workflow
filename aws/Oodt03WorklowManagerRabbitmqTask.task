@@ -1,0 +1,140 @@
+{
+  "requiresAttributes": [],
+  "taskDefinitionArn": "arn:aws:ecs:us-west-2:031003439974:task-definition/Oodt03WorklowManagerRabbitmqTask:6",
+  "networkMode": "bridge",
+  "status": "ACTIVE",
+  "revision": 6,
+  "taskRoleArn": null,
+  "containerDefinitions": [
+    {
+      "volumesFrom": [],
+      "memory": 2048,
+      "extraHosts": null,
+      "dnsServers": null,
+      "disableNetworking": null,
+      "dnsSearchDomains": null,
+      "portMappings": [
+        {
+          "hostPort": 9001,
+          "containerPort": 9001,
+          "protocol": "tcp"
+        }
+      ],
+      "hostname": null,
+      "essential": true,
+      "entryPoint": null,
+      "mountPoints": [
+        {
+          "containerPath": "/usr/local/oodt/workflows/policy",
+          "sourceVolume": "policy",
+          "readOnly": null
+        },
+        {
+          "containerPath": "/usr/local/oodt/workflows/test-workflow/pge-configs",
+          "sourceVolume": "pge_configs",
+          "readOnly": null
+        },
+        {
+          "containerPath": "/usr/local/oodt/pges/test-workflow",
+          "sourceVolume": "pges",
+          "readOnly": null
+        },
+        {
+          "containerPath": "/etc/supervisor/supervisord.conf",
+          "sourceVolume": "supervisor",
+          "readOnly": null
+        },
+        {
+          "containerPath": "/usr/local/oodt/pges/test-workflow/jobs",
+          "sourceVolume": "jobs",
+          "readOnly": null
+        },
+        {
+          "containerPath": "/usr/local/oodt/archive",
+          "sourceVolume": "archive",
+          "readOnly": null
+        }
+      ],
+      "name": "OodtWorkflowManager",
+      "ulimits": null,
+      "dockerSecurityOptions": null,
+      "environment": [
+        {
+          "name": "FILEMGR_URL",
+          "value": "http://internal-EcostressLoadBalancer-1621470833.us-west-2.elb.amazonaws.com:9000/"
+        },
+        {
+          "name": "MAX_WORKFLOWS",
+          "value": "3"
+        },
+        {
+          "name": "RABBITMQ_ADMIN_URL",
+          "value": "http://oodt-admin:changeit@internal-EcostressLoadBalancer-1621470833.us-west-2.elb.amazonaws.com:15672"
+        },
+        {
+          "name": "RABBITMQ_USER_URL",
+          "value": "amqp://oodt-user:changeit@internal-EcostressLoadBalancer-1621470833.us-west-2.elb.amazonaws.com/%2f"
+        },
+        {
+          "name": "WORKFLOW_QUEUE",
+          "value": "test-workflow"
+        },
+        {
+          "name": "WORKFLOW_URL",
+          "value": "http://localhost:9001"
+        }
+      ],
+      "links": null,
+      "workingDirectory": null,
+      "readonlyRootFilesystem": null,
+      "image": "oodthub/oodt-wmgr:0.3",
+      "command": null,
+      "user": null,
+      "dockerLabels": null,
+      "logConfiguration": null,
+      "cpu": 0,
+      "privileged": null,
+      "memoryReservation": null
+    }
+  ],
+  "placementConstraints": [],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/workflows/test-workflow/policy"
+      },
+      "name": "policy"
+    },
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/workflows/test-workflow/pge-configs"
+      },
+      "name": "pge_configs"
+    },
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/pges/test-workflow"
+      },
+      "name": "pges"
+    },
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/conf/supervisord.conf"
+      },
+      "name": "supervisor"
+    },
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/pges/test-workflow/jobs"
+      },
+      "name": "jobs"
+    },
+    {
+      "host": {
+        "sourcePath": "/shared_data/oodt-data/archive"
+      },
+      "name": "archive"
+    }
+  ],
+  "family": "Oodt03WorklowManagerRabbitmqTask"
+}

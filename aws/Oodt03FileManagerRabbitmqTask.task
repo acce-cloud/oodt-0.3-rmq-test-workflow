@@ -1,0 +1,143 @@
+{
+    "networkMode": "bridge",
+    "taskRoleArn": null,
+    "containerDefinitions": [
+        {
+            "volumesFrom": [],
+            "memory": 1024,
+            "extraHosts": null,
+            "dnsServers": null,
+            "disableNetworking": null,
+            "dnsSearchDomains": null,
+            "portMappings": [
+                {
+                    "hostPort": 5672,
+                    "containerPort": 5672,
+                    "protocol": "tcp"
+                },
+                {
+                    "hostPort": 15672,
+                    "containerPort": 15672,
+                    "protocol": "tcp"
+                }
+            ],
+            "hostname": null,
+            "essential": true,
+            "entryPoint": null,
+            "mountPoints": [
+                {
+                    "containerPath": "/usr/local/oodt/rabbitmq/test_workflow_driver.py",
+                    "sourceVolume": "test_workflow_driver",
+                    "readOnly": null
+                }
+            ],
+            "name": "OodtRabbitmq",
+            "ulimits": null,
+            "dockerSecurityOptions": null,
+            "environment": [
+                {
+                    "name": "RABBITMQ_ADMIN_URL",
+                    "value": "http://oodt-admin:changeit@localhost:15672"
+                },
+                {
+                    "name": "RABBITMQ_USER_URL",
+                    "value": "amqp://oodt-user:changeit@localhost/%2f"
+                }
+            ],
+            "links": null,
+            "workingDirectory": null,
+            "readonlyRootFilesystem": null,
+            "image": "oodthub/oodt-rabbitmq",
+            "command": null,
+            "user": null,
+            "dockerLabels": null,
+            "logConfiguration": null,
+            "cpu": 0,
+            "privileged": null,
+            "memoryReservation": null
+        },
+        {
+            "volumesFrom": [],
+            "memory": 2048,
+            "extraHosts": null,
+            "dnsServers": null,
+            "disableNetworking": null,
+            "dnsSearchDomains": null,
+            "portMappings": [
+                {
+                    "hostPort": 9000,
+                    "containerPort": 9000,
+                    "protocol": "tcp"
+                }
+            ],
+            "hostname": null,
+            "essential": true,
+            "entryPoint": null,
+            "mountPoints": [
+                {
+                    "containerPath": "/usr/local/oodt/workflows/policy",
+                    "sourceVolume": "policy",
+                    "readOnly": null
+                },
+                {
+                    "containerPath": "/usr/local/oodt/archive",
+                    "sourceVolume": "archive",
+                    "readOnly": null
+                },
+                {
+                    "containerPath": "/usr/local/oodt/pges/test-workflow/jobs",
+                    "sourceVolume": "jobs",
+                    "readOnly": null
+                }
+            ],
+            "name": "OodtFileManager",
+            "ulimits": null,
+            "dockerSecurityOptions": null,
+            "environment": [],
+            "links": null,
+            "workingDirectory": null,
+            "readonlyRootFilesystem": null,
+            "image": "oodthub/oodt-filemgr:0.3",
+            "command": null,
+            "user": null,
+            "dockerLabels": null,
+            "logConfiguration": null,
+            "cpu": 0,
+            "privileged": null,
+            "memoryReservation": null
+        }
+    ],
+    "placementConstraints": [
+        {
+            "expression": "attribute:oodt_type == manager_node",
+            "type": "memberOf"
+        }
+    ],
+    "volumes": [
+        {
+            "host": {
+                "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/rabbitmq_clients/test_workflow_driver.py"
+            },
+            "name": "test_workflow_driver"
+        },
+        {
+            "host": {
+                "sourcePath": "/shared_data/oodt-data/src/oodt-0.3-rmq-test-workflow/workflows/test-workflow/policy"
+            },
+            "name": "policy"
+        },
+        {
+            "host": {
+                "sourcePath": "/shared_data/oodt-data/archive"
+            },
+            "name": "archive"
+        },
+        {
+            "host": {
+                "sourcePath": "/shared_data/oodt-data/pges/test-workflow/jobs"
+            },
+            "name": "jobs"
+        }
+    ],
+    "family": "Oodt03FileManagerRabbitmqTask"
+}
