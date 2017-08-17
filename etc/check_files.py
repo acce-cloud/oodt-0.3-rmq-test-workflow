@@ -3,7 +3,7 @@ import glob
 
 njobs=10000
 ntasks=2
-root_dir = '/shared_data/test/archive/test-workflow'
+root_dir = '/shared_data/oodt-data/archive/test-workflow'
 #all_files = glob.glob('%s/*.out' % root_dir)
 
 # loop over jobs, tasks
