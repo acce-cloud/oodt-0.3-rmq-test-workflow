@@ -2,7 +2,7 @@
 
 OODT_ARCHIVE=/shared_data/oodt-data/archive
 OODT_JOBS=/shared_data/oodt-data/pges/test-workflow/jobs
-OODT_LOGS=/shared_data/oodt-data/logs
+#OODT_LOGS=/shared_data/oodt-data/logs
 
 # data archive
 for ((i=1000;i>=1;i--)); do
@@ -22,4 +22,4 @@ sudo rm -rf ${OODT_JOBS}/f*
 sudo rm -rf ${OODT_JOBS}/*
 
 # logs
-sudo rm -rf ${OODT_LOGS}/*
+#sudo rm -rf ${OODT_LOGS}/*
