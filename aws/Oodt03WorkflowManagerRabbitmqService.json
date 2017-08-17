@@ -1,7 +1,7 @@
 {
     "cluster": "OodtTestCluster", 
-    "serviceName": "Oodt03WorklowManagerRabbitmqService", 
-    "taskDefinition": "Oodt03WorklowManagerRabbitmqTask", 
+    "serviceName": "Oodt03WorkflowManagerRabbitmqService", 
+    "taskDefinition": "Oodt03WorkflowManagerRabbitmqTask", 
     "loadBalancers": [
         {
             "targetGroupArn": "",
