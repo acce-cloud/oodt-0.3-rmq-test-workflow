@@ -17,7 +17,7 @@ TEST_WORKFLOW = 'test-workflow'
 SLEEP_TIME = 0 # time to wait before sending the next message
 
 def worker(number_of_runs):
-    '''Function that sends the messages to execute the runes.'''
+    '''Function that sends the messages to execute the runs.'''
 
     # loop over runs=workflows
     for irun in range(1, number_of_runs+1):
@@ -42,7 +42,7 @@ def main(number_of_runs):
     startTime = datetime.datetime.now()
     logging.critical("Start Time: %s" % startTime.strftime("%Y-%m-%d %H:%M:%S") )
 
-    # send all messages in a separare thread
+    # send all messages in a separate thread
     # do not wait till completion
     t = threading.Thread(target=worker, args=(number_of_runs,))
     t.start()
