@@ -11,7 +11,7 @@ spanning multiple hosts. The tutorial sets up the following architecture (see at
 * Two or more Workflow Manager (WM) containers, deployed on Swarm worker nodes
 * For each WM container, a RMQ client co-located in the same container, which periodically pulls
   messages from the RMQ server and use them to submit workflows to the local WM
-* Optionally, for each WM container, an Workflow Manager proxy (WMP) which intercepts requests to the WM and converts them to messages sent to the RMQ server.
+* Optionally, for each WM container, an Workflow Manager Proxy (WMP) which intercepts requests to the WM and converts them to messages sent to the RMQ server.
   
 This tutorial is based on Docker images built from OODT 0.3.
   
@@ -77,7 +77,7 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   
   docker node ls
 
-* Start the OODT services, deploying the Docker containers onto the appropriate swarm nodes:
+* a) Start the OODT services, deploying the Docker containers onto the appropriate swarm nodes:
 
   ./step3_node1.sh
   
@@ -90,6 +90,16 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
   Optionally, increase the number of WM containers:
   
   docker service scale oodt-wmgr=4
+  
+* b) Alternatively, start the OODT services in the "proxy" configuration:
+
+  ./step3-proxy_node1.sh
+  
+  In this configuration, on each worker container:
+  
+    * The WM starts on port 8001
+    * A WMP is started on port 9001, intercepting requests that would normally be sent by clients to the WM, and converting them to messages that are sent to the RMQ server
+    * The RabbitMQ message consumer is configured to still pull messages from the usual RMQ server, but send workflow requests to the local WM on port 8001
   
 * Send N messages to the RMQ server, to start as many workflows on the WM containers.
 
