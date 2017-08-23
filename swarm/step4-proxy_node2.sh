@@ -12,7 +12,7 @@ echo $wrkr_id
 docker exec -it $wrkr_id sh -c "rm -rf /usr/local/oodt/pges/test-workflow/jobs/*"
 docker exec -it $wrkr_id ls -l /usr/local/oodt/pges/test-workflow/jobs
 
-NJOBS=1
+NJOBS=10
 for ((i=1;i<=NJOBS;i++)); do
    # submit workflow $i
    echo "Submitting workflow # $i"
