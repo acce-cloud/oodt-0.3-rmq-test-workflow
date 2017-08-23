@@ -147,7 +147,7 @@ Then launch N additional EC2 instances to be Swarm Workers, using the same speci
 
 # Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture
 
-As demonstrated in this tutorial, the RabbitMQ client/server architecture can be used to effectively mamage submission of workflows to multiple distributed OODT Workflow Managers - effectively replacing the need for the OODT Resource Manager component. To use RMQ with OODT, follow these steps:
+As demonstrated in this tutorial, the RabbitMQ client/server architecture can be used to effectively manage submission of workflows to multiple distributed OODT Workflow Managers - effectively replacing the need for the OODT Resource Manager component. To use RMQ with OODT, follow these steps:
 
 * Start a container running the RMQ server image "oodthub/oodt-rabbitmq". This container must be reachable at ports 5672, 15672 by all other containers running RMQ clients (which connect with username and password).
 
@@ -156,6 +156,22 @@ As demonstrated in this tutorial, the RabbitMQ client/server architecture can be
   python rabbitmq_client.py pull <workflow_queue> <max_workflows>
   
   where <workflow_queue> is the name of the RMQ queue to pull messages from, which is equal to the name of the OODT event triggering the workflow; and <max_workflows> is the maximum number of concurrent workflows that can be run inside the local Workflow Manager. That is, the RMQ client keeps pulling messages from the specified queue on the RMQ server until that max limit is reached, then wait for the WM workload to decrease before pulling other messages.
-  Note that the RMQ message consumer connects to the RMQ server using the URLs defined in the env variables RABBITMQ_USER_URL and RABBITMQ_ADMIN_URL.
+  Note that the RMQ message consumer connects to the RMQ server using the URLs defined in the env variables RABBITMQ_USER_URL and RABBITMQ_ADMIN_URL. Important: if your data processing pipeline involves more than one OODT workflow, you need to start a separate WM message consumer for each of them, since each one listens to only one specific queue.
 
 * Submit workflows by using a RMQ "message producer" which sends messages to the RMQ server, containing all the medadata necessary to execute a specific workflow. Typically, a small client can be written (see for example test_workflow_driver.py) that inserts all the necessary metadata in a Python dictionary, and then uses the rabbitmq_producer.py module which is packaged with the RMQ or WM containers. Once again, the RMQ message producer will connect to the RMQ server using the connection information specified in the two env variables RABBITMQ_USER_URL and RABBITMQ_ADMIN_URL.
+
+# Appendix: How to use RabbitMQ with a generic OODT-0.3 Docker architecture and a Workflow Manager Proxy
+
+In order to minimize changes to existing code bases, the OODT+RabbitMQ architecture can be setup with a WM Proxy, which intercepts requests from ordinary WM clients and sends messages to the RMQ server (effectively acting as the RabbitMQ message producer). To do so:
+
+* Starts the RMQ server container, as described above
+
+* Inside each WM container, start the WM listening on port 8001 (instead of the default 9001). This can be done by overriding the WM start-up script $OODT_HOME/cas-workflow/bin/wmgr.
+
+* Inside each WM container, start teh WMP listening on port 9001 on all host addresses (see example in conf/supervisord-proxy.conf:
+
+  python workflow_manager_proxy.py "" 9001
+
+* Inside each WM container, start a RMQ "message consumer", as described above, but this time sending workflow requests to localhost:8001. This can be done by defining the following environment variable inside the WM container:
+
+  export PROXIED_WORKFLOW_URL=http://localhost:8001/
