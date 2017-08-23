@@ -164,14 +164,16 @@ As demonstrated in this tutorial, the RabbitMQ client/server architecture can be
 
 In order to minimize changes to existing code bases, the OODT+RabbitMQ architecture can be setup with a WM Proxy, which intercepts requests from ordinary WM clients and sends messages to the RMQ server (effectively acting as the RabbitMQ message producer). To do so:
 
-* Starts the RMQ server container, as described above
+* Starts the RMQ server container, as described above.
 
 * Inside each WM container, start the WM listening on port 8001 (instead of the default 9001). This can be done by overriding the WM start-up script $OODT_HOME/cas-workflow/bin/wmgr.
 
-* Inside each WM container, start teh WMP listening on port 9001 on all host addresses (see example in conf/supervisord-proxy.conf:
+* Inside each WM container, start the WMP listening on port 9001 on all host addresses (see example in conf/supervisord-proxy.conf):
 
   python workflow_manager_proxy.py "" 9001
 
 * Inside each WM container, start a RMQ "message consumer", as described above, but this time sending workflow requests to localhost:8001. This can be done by defining the following environment variable inside the WM container:
 
   export PROXIED_WORKFLOW_URL=http://localhost:8001/
+
+No changes are needed for the WM clients: they can continue to send their workflow requets to the WORKFLOW_URL (which can be http://oodt-wmgr:9001 or http://localhost:9001) as before.
