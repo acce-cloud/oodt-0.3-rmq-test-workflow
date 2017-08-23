@@ -1,5 +1,5 @@
 # oodt-0.3-rmq-test-workflow
-Test workflow example using OODT-0.3 and RabbitMQ.
+Test workflow example using OODT-0.3 and RabbitMQ, and optionally a Workflow Manager Proxy.
 
 # Summary
 
@@ -9,8 +9,9 @@ spanning multiple hosts. The tutorial sets up the following architecture (see at
 * One File Manager (FM) container, deployed on the Swarm manager node
 * One RabbitMQ (RMQ) server container, deployed on the Swarm manager node
 * Two or more Workflow Manager (WM) containers, deployed on Swarm worker nodes
-* For each Workflow Manager, a RMQ client co-located in the same container, which periodically pulls
+* For each WM container, a RMQ client co-located in the same container, which periodically pulls
   messages from the RMQ server and use them to submit workflows to the local WM
+* Optionally, for each WM container, an Workflow Manager proxy (WMP) which intercepts requests to the WM and converts them to messages sent to the RMQ server.
   
 This tutorial is based on Docker images built from OODT 0.3.
   
