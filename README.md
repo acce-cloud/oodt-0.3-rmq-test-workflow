@@ -101,13 +101,19 @@ Follow the tutorial by executing the step-by-step scripts contained in the direc
     * A WMP is started on port 9001, intercepting requests that would normally be sent by clients to the WM, and converting them to messages that are sent to the RMQ server
     * The RabbitMQ message consumer is configured to still pull messages from the usual RMQ server, but send workflow requests to the local WM on port 8001
   
-* Send N messages to the RMQ server, to start as many workflows on the WM containers.
+* a) Send N messages to the RMQ server, to start as many workflows on the WM containers.
 
   ./step4_node1.sh
   
   Note: the parameter NJOBS inside the script defines the total number of messages sent to the RMQ server, i.e. the total number of workflows submitted to all WMs.
   
   After sending the messages, the script monitors the RMQ server untill all messages have been pulled by the RMQ clients inside the WM containers. When the last workflow completes, all output products should be moved to $OODT_ARCHIVE.
+  
+* b) Alternatively, use a traditional WM client to send workflow requests to port 9001 (either to the Swarm service "oodt-wmgr:9001" or to the local proxy "localhost:9001"):
+
+  ./step4-proxy_node2.sh
+  
+  Execute the aboe script on one of the worker nodes, thenn monitor the log files located under /var/log on each worker container.
   
 * To clean up:
   * Delete the output product: rm -rf $OODT_ARCHIVE/test-workflow/\*
